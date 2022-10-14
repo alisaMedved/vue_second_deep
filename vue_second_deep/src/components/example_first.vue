@@ -19,12 +19,33 @@ export default {
     },
   },
 
-  beforeCreate() {  this.amount = 1; },
-  created() {       this.amount = 2; },
-  beforeMount() {   this.amount = 3; },
-  mounted() {       this.amount = 4; },
-  beforeDestroy() { this.amount = 5; },
-  destroyed() {     this.amount = 6; },
+  beforeCreate() {
+    console.log('this.amount beforeCreate ', this.amount);
+    this.amount = 1;
+    },
+  created() {
+    console.log('this.amount created ', this.amount);
+    this.amount = 2;
+    },
+  beforeMount() {
+  console.log('this.amount beforeMount ', this.amount);
+    this.amount = 3;
+    },
+  mounted() {
+  console.log('this.amount mounted ', this.amount);
+  console.log('this.$el mounted ', this.$el);
+    this.amount = 4;
+    },
+  beforeDestroy() {
+  console.log('this.amount beforeDestroy ', this.amount);
+    console.log('this.$el beforeDestroy ', this.$el);
+    this.amount = 5;
+    },
+  destroyed() {
+  console.log('this.amount destroyed ', this.amount);
+    console.log('this.$el destroyed ', this.$el);
+    this.amount = 6;
+    },
 };
 
 /*
@@ -70,7 +91,7 @@ instance компонента все еще доступен $el тоже;
 он не вызывается при sever-side rendering
 
 unmounted - вызывается после размонтирования компонента
-
+instance компонента все еще доступен $el тоже;
 Что значит размонтирован?
 
 а) размонтирован из DOM и все его дочерние тоже
@@ -83,7 +104,7 @@ Vue отпишется от наблюдения за изменением пе�
 
 3 и 4  выводится во vue3 и только 4 выводится во vue2. Почему?
 
-
+Так как все эти хуки вызываются во время одного тика, Vue вызовет watcher один раз в самом конце, со значением 4.
 
 * */
 </script>
